@@ -1,10 +1,8 @@
-package models
-
-class Register(n: String) {
-  override def toString = s"$n"
-}
+package models.tokens.misc
 
 object Register {
+  type RegisterT = String
+
   val names = List(
     "$zero",
     "$at",

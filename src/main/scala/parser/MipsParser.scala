@@ -1,55 +1,26 @@
 package parser
 
-import models.{AsciiDirective, AsciizDirective, Comment, DataDirective, Directive, LoadAddress, LoadImmediate, Move, NothingToken, Register, Token, WordDirective}
+import models.tokens.directives._
+import models.tokens.instructions.{LoadAddress, LoadImmediate, Move}
+import models.tokens.misc.{Comment, Label, Syscall}
+import models.traits.Token
 
-import scala.language.implicitConversions
-import scala.util.parsing.combinator.RegexParsers
-import scala.util.parsing.input.{CharSequenceReader, Reader}
-import scala.language.postfixOps
+import scala.language.{implicitConversions, postfixOps}
+import scala.util.parsing.input.Reader
 
-class MipsParser extends RegexParsers {
+class MipsParser {
 
-  override def skipWhitespace = false
+  import GenericParser._
 
-  def separator: Parser[Any] = literal(",") ~ whiteSpace | whiteSpace
+  def directive: Parser[Token] = Text.parse ||| Word.parse ||| Data.parse ||| Ascii.parse ||| Asciiz.parse
 
-  def word: Parser[String] = """[\w]+""".r ^^ { x => x }
+  def instruction: Parser[Token] = LoadAddress.parse ||| LoadImmediate.parse ||| Move.parse ||| Label.parse
 
-  def number: Parser[Int] = """^-?[0-9][0-9]*""".r ^^ {
-    _.toInt
-  }
+  def misc: Parser[Token] = Label.parse ||| Comment.parse ||| Syscall.parse
 
-  def register: Parser[Register] = Register.names
-    .foldRight(literal(Register.names.head).map(new Register(_)))((x, xs) => literal(x).map(new Register(_)) | xs)
+  def item: Parser[Token] = directive ||| instruction ||| misc
 
-  def loadAddress: Parser[LoadAddress] = literal("la") ~ separator ~ register ~ separator ~ word ^^ {
-    case _ ~ _ ~ register ~ _ ~ label => new LoadAddress(register, label)
-  }
-
-  def loadImmediate: Parser[LoadImmediate] = literal("li") ~ separator ~ register ~ separator ~ number ^^ {
-    case _ ~ _ ~ register ~ _ ~ i => new LoadImmediate(register, i)
-  }
-
-  def move: Parser[Move] = literal("move") ~ separator ~ register ~ separator ~ register ^^ {
-    case _ ~ _ ~ register1 ~ _ ~ register2 => new Move(register1, register2)
-  }
-
-  def nothing: Parser[Token] = """\s*""".r ^^ { _ => new NothingToken }
-
-  def directive: Parser[Directive] = (whiteSpace ?) ~ literal(".") ~ word ~ whiteSpace ^^ {
-    case _ ~ _ ~ "asciiz" => new AsciizDirective
-    case _ ~ _ ~ "data" => new DataDirective
-    case _ ~ _ ~ "word" => new WordDirective
-    case _ ~ _ ~ "ascii" => new AsciiDirective
-  }
-
-  def comment: Parser[Comment] = literal("#") ~ ("""[^\n]+""".r ?) ^^ { case _ ~ comment => new Comment(comment.getOrElse("")) }
-
-  def instruction: Parser[Token] = loadAddress ||| loadImmediate ||| move ||| comment ||| nothing
-
-  def program: Parser[Seq[Token]] = repsep(instruction, "\n") ^^ {
-    _.toList
-  }
+  def program: Parser[Seq[Token]] = repsep(item, """[\n\s]""".r) ^^ { _.toList }
 
   def parseCode(code: Reader[Char]): Seq[Token] = {
     parse(program, code) match {
