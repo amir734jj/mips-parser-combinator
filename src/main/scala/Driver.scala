@@ -13,8 +13,8 @@ object Driver {
     })
     val code = try source.mkString finally source.close()
 
-    val instructions = parser.parseCode(new CharArrayReader(code.toArray, 0))
+    val program = parser.parseCode(new CharArrayReader(code.toArray, 0))
 
-    println(instructions.mkString("\n"))
+    println(new PrettyPrinter(program).format())
   }
 }

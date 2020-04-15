@@ -8,11 +8,11 @@ object Comment extends AtomicParser {
 
   override type selfT = CommentImpl
 
-  case class CommentImpl(val comment: String) extends Token {
+  case class CommentImpl(comment: String) extends Token {
     override def toString: String = s"#$comment"
   }
 
   def parse(): Parser[selfT] = literal("#") ~ ("""[^\n]+""".r ?) ^^ {
-    case _ ~ comment => new CommentImpl(comment.getOrElse(""))
+    case _ ~ comment => CommentImpl(comment.getOrElse(""))
   }
 }

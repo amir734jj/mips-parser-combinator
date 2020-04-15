@@ -9,11 +9,11 @@ object LoadImmediate extends AtomicParser {
 
   override type selfT = LoadImmediateImpl
 
-  case class LoadImmediateImpl(val register: RegisterT, val value: Int) extends Token {
+  case class LoadImmediateImpl(register: RegisterT, value: Int) extends Token {
     override def toString: String = s"li $register, $value"
   }
 
   def parse(): Parser[selfT] = literal("li") ~ registerP ~ separatorP ~ numberP ^^ {
-    case _ ~ register ~ _ ~ value => new LoadImmediateImpl(register, value)
+    case _ ~ register ~ _ ~ value => LoadImmediateImpl(register, value)
   }
 }

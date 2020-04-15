@@ -9,13 +9,11 @@ object Move extends AtomicParser {
 
   override type selfT = MoveImpl
 
-  def apply(): MoveImpl = new MoveImpl()
-
-  case class MoveImpl(val r1: RegisterT, val r2: RegisterT) extends Token {
+  case class MoveImpl(r1: RegisterT, r2: RegisterT) extends Token {
     override def toString: String = s"move $r1, $r2"
   }
 
   override def parse(): Parser[selfT] = literal("move") ~ registerP ~ separatorP ~ registerP ^^ {
-    case _ ~ register1 ~ _ ~ register2 => new MoveImpl(register1, register2)
+    case _ ~ register1 ~ _ ~ register2 => MoveImpl(register1, register2)
   }
 }

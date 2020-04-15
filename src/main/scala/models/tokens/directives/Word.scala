@@ -13,6 +13,6 @@ object Word extends AtomicParser {
   }
 
   def parse(): Parser[selfT] = literal(".word") ~ numberP ^^ {
-    case _ ~ number => new WordImpl(number)
+    case _ ~ number => WordImpl(number)
   }
 }
