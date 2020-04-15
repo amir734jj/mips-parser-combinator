@@ -9,10 +9,10 @@ object Asciiz extends AtomicParser {
   override type selfT = AsciizImpl
 
   class AsciizImpl(var value: String) extends Token {
-    override def toString: String = s".asciiz ${value}"
+    override def toString: String = s".asciiz $value"
   }
 
-  def parse(): Parser[selfT] = literal(".asciiz") ~ WhiteSpace ~ """"([^\\"]|\\.)*"""".r ^^ {
-    case _ ~ _ ~ str => new AsciizImpl(str)
+  def parse(): Parser[selfT] = literal(".asciiz") ~ """"([^\\"]|\\.)*"""".r ^^ {
+    case _ ~ str => new AsciizImpl(str)
   }
 }

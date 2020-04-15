@@ -20,7 +20,7 @@ class MipsParser {
 
   def item: Parser[Token] = directive ||| instruction ||| misc
 
-  def program: Parser[Seq[Token]] = repsep(item, """[\n\s]""".r) ^^ { _.toList }
+  def program: Parser[Seq[Token]] = repsep(item, """[\s\t\n]+""".r) ^^ { _.toList }
 
   def parseCode(code: Reader[Char]): Seq[Token] = {
     parse(program, code) match {

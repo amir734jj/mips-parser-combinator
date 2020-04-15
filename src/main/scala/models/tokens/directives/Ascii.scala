@@ -12,7 +12,7 @@ object Ascii extends AtomicParser {
     override def toString: String = s".ascii $value"
   }
 
-  def parse(): Parser[selfT] = literal(".ascii") ~ WhiteSpace ~ """"([^\\"]|\\.)*"""".r ^^ {
-    case _ ~ _ ~ str => new AsciiImpl(str)
+  def parse(): Parser[selfT] = literal(".ascii") ~ """"([^\\"]|\\.)*"""".r ^^ {
+    case _ ~ str => new AsciiImpl(str)
   }
 }

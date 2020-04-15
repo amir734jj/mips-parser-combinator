@@ -9,10 +9,10 @@ object Word extends AtomicParser {
   override type selfT = WordImpl
 
   class WordImpl(var value: Int) extends Token {
-    override def toString: String = s".word ${value}"
+    override def toString: String = s".word $value"
   }
 
-  def parse(): Parser[selfT] = literal(".word") ~ WhiteSpace ~ numberP ^^ {
-    case _ ~ _ ~ number => new WordImpl(number)
+  def parse(): Parser[selfT] = literal(".word") ~ numberP ^^ {
+    case _ ~ number => new WordImpl(number)
   }
 }
