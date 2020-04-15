@@ -37,10 +37,12 @@ class PrettyPrinter(val program: Program) {
           case "main" =>
             indentCounter = 0
             sb.append(t)
+            indentCounter += 1
           case _ =>
             lookahead match {
               case Some(Ascii(_)) | Some(Asciiz(_)) | Some(Word(_)) => sb.append(t)
               case _ =>
+                indentCounter -= 1
                 sb.append(indent()).append(t)
                 indentCounter += 1
             }

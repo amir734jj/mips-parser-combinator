@@ -33,12 +33,13 @@
 
 .data
 str:
-.asciiz "Hello world!"
+.asciiz "Hello world!\n"
 foo: .word 5
 .text
-main: li $v0, 4   # print string
+main: print_string: li $v0, 4   # print string
 la $a0, str
 syscall
+print_integer:
 li $v0, 1
 la $t0, foo
 lw $t0, 0($t0)
