@@ -2,7 +2,7 @@ package parser
 
 import models.tokens.Program
 import models.tokens.directives._
-import models.tokens.instructions.{LoadAddress, LoadImmediate, Move}
+import models.tokens.instructions.{LoadAddress, LoadImmediate, LoadWord, Move}
 import models.tokens.misc.{Comment, Label, Syscall}
 import models.traits.Token
 
@@ -15,7 +15,7 @@ class MipsParser {
 
   def directive: Parser[Token] = Text.parse ||| Word.parse ||| Data.parse ||| Ascii.parse ||| Asciiz.parse
 
-  def instruction: Parser[Token] = LoadAddress.parse ||| LoadImmediate.parse ||| Move.parse ||| Label.parse
+  def instruction: Parser[Token] = LoadAddress.parse ||| LoadImmediate.parse ||| Move.parse ||| Label.parse ||| LoadWord.parse
 
   def misc: Parser[Token] = Label.parse ||| Comment.parse ||| Syscall.parse
 

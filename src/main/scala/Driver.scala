@@ -9,7 +9,7 @@ object Driver {
 
     val source = scala.io.Source.fromFile(args.headOption match {
       case Some(value) => value
-      case None => "src/test.s"
+      case None => "src/example.s"
     })
     val code = try source.mkString finally source.close()
 

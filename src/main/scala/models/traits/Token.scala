@@ -7,6 +7,7 @@ import models.tokens.directives.Text._
 import models.tokens.directives.Word._
 import models.tokens.instructions.LoadAddress._
 import models.tokens.instructions.LoadImmediate._
+import models.tokens.instructions.LoadWord._
 import models.tokens.instructions.Move._
 import models.tokens.misc.Comment._
 import models.tokens.misc.Label._
@@ -29,5 +30,5 @@ object Token {
   val Comment: CommentImpl.type = CommentImpl
   val LoadAddress: LoadAddressImpl.type = LoadAddressImpl
   val LoadImmediate: LoadImmediateImpl.type = LoadImmediateImpl
-
+  val LoadWord: LoadWordImpl.type = LoadWordImpl
 }

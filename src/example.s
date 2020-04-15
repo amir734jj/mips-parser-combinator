@@ -31,14 +31,18 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-    .data
-str:   .asciiz "Hello world!"
-    .text
-main:
-    li $v0, 4   # print string
-    la $a0, str
-    syscall
-
-    halt:
-        li $v0, 10  # halt
-        syscall
+.data
+str:
+.asciiz "Hello world!"
+foo: .word 5
+.text
+main: li $v0, 4   # print string
+la $a0, str
+syscall
+li $v0, 1
+la $t0, foo
+lw $t0, 0($t0)
+move $a0, $t0
+syscall
+halt: li $v0, 10  # halt
+syscall
