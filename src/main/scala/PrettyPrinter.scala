@@ -10,15 +10,15 @@ class PrettyPrinter(val program: Program) {
   def token(t: Token) = {
     t match {
       case Data() => ()
-      case Text() =>()
-      case Syscall() =>()
-      case Label(name) =>()
-      case Word(value) =>()
-      case Ascii(value) =>()
-      case Move(r1, r2) =>()
-      case Asciiz(value) =>()
-      case Comment(comment) =>()
-      case LoadAddress(register, label) =>()
+      case Text() => ()
+      case Syscall() => ()
+      case Label(name) => ()
+      case Word(value) => ()
+      case Ascii(value) => ()
+      case Move(r1, r2) => ()
+      case Asciiz(value) => ()
+      case Comment(comment) => ()
+      case LoadAddress(register, label) => ()
       case LoadImmediate(register, value) => ()
     }
   }
