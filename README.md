@@ -3,7 +3,7 @@ Very basic MIPS parser combinator in Scala + PrettyPrinter.
 
 This project used Scala's built-in parser combinator to parse a subset of MIPS and indent it.
 
-```MIPS
+```Assembly
 	.data
 str:	.asciiz "Hello world!\n"
 foo:	.word 5
