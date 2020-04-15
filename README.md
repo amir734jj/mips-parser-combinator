@@ -7,6 +7,7 @@ This project used Scala's built-in parser combinator to parse a subset of MIPS a
 	.data
 str:	.asciiz "Hello world!\n"
 foo:	.word 5
+
 	.text
 main:
   print_string:

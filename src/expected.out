@@ -2,6 +2,7 @@
 	.data
 str:	.asciiz "Hello world!\n"
 foo:	.word 5
+
 	.text
 main:
   print_string:

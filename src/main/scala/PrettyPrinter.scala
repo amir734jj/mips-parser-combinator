@@ -28,6 +28,7 @@ class PrettyPrinter(val program: Program) {
         indentCounter = 0
       case Text() =>
         sb.append('\n')
+          .append('\n')
           .append('\t')
           .append(t)
         indentCounter = 0
