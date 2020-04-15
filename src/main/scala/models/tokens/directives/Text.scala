@@ -8,7 +8,7 @@ object Text extends AtomicParser {
 
   override type selfT = TextImpl
 
-  class TextImpl extends Token {
+  case class TextImpl() extends Token {
     override def toString: String = ".text"
   }
 

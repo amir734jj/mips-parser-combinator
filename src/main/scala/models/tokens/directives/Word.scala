@@ -8,7 +8,7 @@ object Word extends AtomicParser {
 
   override type selfT = WordImpl
 
-  class WordImpl(var value: Int) extends Token {
+  case class WordImpl(var value: Int) extends Token {
     override def toString: String = s".word $value"
   }
 

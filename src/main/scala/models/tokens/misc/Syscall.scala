@@ -8,7 +8,7 @@ object Syscall extends AtomicParser {
 
   override type selfT = SyscallImpl
 
-  class SyscallImpl extends Token {
+  case class SyscallImpl() extends Token {
     override def toString: String = "syscall"
   }
 

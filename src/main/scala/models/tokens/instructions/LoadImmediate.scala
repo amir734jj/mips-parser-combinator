@@ -9,7 +9,7 @@ object LoadImmediate extends AtomicParser {
 
   override type selfT = LoadImmediateImpl
 
-  class LoadImmediateImpl(val register: RegisterT, val value: Int) extends Token {
+  case class LoadImmediateImpl(val register: RegisterT, val value: Int) extends Token {
     override def toString: String = s"li $register, $value"
   }
 

@@ -8,7 +8,7 @@ object Ascii extends AtomicParser {
 
   override type selfT = AsciiImpl
 
-  class AsciiImpl(var value: String) extends Token {
+  case class AsciiImpl(var value: String) extends Token {
     override def toString: String = s".ascii $value"
   }
 

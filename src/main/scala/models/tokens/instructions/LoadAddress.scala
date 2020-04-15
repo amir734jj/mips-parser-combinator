@@ -9,7 +9,7 @@ object LoadAddress extends AtomicParser {
 
   override type selfT = LoadAddressImpl
 
-  class LoadAddressImpl(val register: RegisterT, val label: String) extends Token {
+  case class LoadAddressImpl(val register: RegisterT, val label: String) extends Token {
     override def toString: String = s"la $register, $label"
   }
 

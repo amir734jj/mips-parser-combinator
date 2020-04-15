@@ -8,7 +8,7 @@ object Comment extends AtomicParser {
 
   override type selfT = CommentImpl
 
-  class CommentImpl(val comment: String) extends Token {
+  case class CommentImpl(val comment: String) extends Token {
     override def toString: String = s"#$comment"
   }
 

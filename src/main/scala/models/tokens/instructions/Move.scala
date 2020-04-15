@@ -9,7 +9,9 @@ object Move extends AtomicParser {
 
   override type selfT = MoveImpl
 
-  class MoveImpl(val r1: RegisterT, val r2: RegisterT) extends Token {
+  def apply(): MoveImpl = new MoveImpl()
+
+  case class MoveImpl(val r1: RegisterT, val r2: RegisterT) extends Token {
     override def toString: String = s"move $r1, $r2"
   }
 

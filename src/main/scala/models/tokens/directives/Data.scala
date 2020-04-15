@@ -8,7 +8,7 @@ object Data extends AtomicParser {
 
   override type selfT = DataImpl
 
-  class DataImpl extends Token {
+  case class DataImpl() extends Token {
     override def toString: String = ".data"
   }
 

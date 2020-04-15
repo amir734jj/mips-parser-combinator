@@ -8,7 +8,7 @@ object Label extends AtomicParser {
 
   override type selfT = LabelImpl
 
-  class LabelImpl(val name: String) extends Token {
+  case class LabelImpl(val name: String) extends Token {
     override def toString: String = s"$name:"
   }
 
