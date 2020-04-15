@@ -21,36 +21,30 @@ class PrettyPrinter(val program: Program) {
 
   def formatToken(t: Token, lookahead: Option[Token]): Unit = {
     t match {
-      case Data() => {
+      case Data() =>
         sb.append('\n')
           .append('\t')
           .append(t)
         indentCounter = 0
-      }
-      case Text() => {
+      case Text() =>
         sb.append('\n')
           .append('\t')
           .append(t)
         indentCounter = 0
-      }
-      case Label(name) => {
+      case Label(name) =>
         sb.append('\n')
         name match {
-          case "main" => {
+          case "main" =>
             indentCounter = 0
             sb.append(t)
-          }
-          case _ => {
+          case _ =>
             lookahead match {
               case Some(Ascii(_)) | Some(Asciiz(_)) | Some(Word(_)) => sb.append(t)
-              case _ => {
+              case _ =>
                 sb.append(indent()).append(t)
                 indentCounter += 1
-              }
             }
-          }
         }
-      }
       case Word(value) => sb.append('\t').append(t)
       case Ascii(value) => sb.append('\t').append(t)
       case Asciiz(value) => sb.append('\t').append(t)
