@@ -17,31 +17,49 @@ class PrettyPrinter(val program: Program) {
 
   var indentCounter = 0
 
-  def indent(): String = (for (_ <- 0 to indentCounter) yield "").mkString
+  def indent(): String = (for (_ <- 0 to indentCounter) yield "  ").mkString
 
   def formatToken(t: Token, lookahead: Option[Token]): Unit = {
     t match {
-      case Data() => sb.append('\t').append(t).append('\n')
-      case Text() => sb.append('\t').append(t).append('\n')
-      case Syscall() => sb.append(t).append('\n')
-      case Label(name) => name match {
-        case "main" => {
-          indentCounter = 0
-          sb.append(t).append('\n')
-        }
-        case _ => {
-          sb.append(indent()).append(t)
-          indentCounter += 1
+      case Data() => {
+        sb.append('\n')
+          .append('\t')
+          .append(t)
+        indentCounter = 0
+      }
+      case Text() => {
+        sb.append('\n')
+          .append('\t')
+          .append(t)
+        indentCounter = 0
+      }
+      case Label(name) => {
+        sb.append('\n')
+        name match {
+          case "main" => {
+            indentCounter = 0
+            sb.append(t)
+          }
+          case _ => {
+            lookahead match {
+              case Some(Ascii(_)) | Some(Asciiz(_)) | Some(Word(_)) => sb.append(t)
+              case _ => {
+                sb.append(indent()).append(t)
+                indentCounter += 1
+              }
+            }
+          }
         }
       }
-      case Word(value) => sb.append(t).append('\n')
-      case Ascii(value) => sb.append(t).append('\n')
-      case Move(r1, r2) => sb.append(indent()).append(t).append('\n')
-      case Asciiz(value) => sb.append('\t').append(t).append('\n')
-      case Comment(comment) => sb.append(t).append('\n')
-      case LoadAddress(register, label) => sb.append(indent()).append(t).append('\n')
-      case LoadImmediate(register, value) => sb.append(indent()).append(t).append('\n')
-      case LoadWord(target, offset, source) => sb.append(indent()).append(t).append('\n')
+      case Word(value) => sb.append('\t').append(t)
+      case Ascii(value) => sb.append('\t').append(t)
+      case Asciiz(value) => sb.append('\t').append(t)
+      case Comment(comment) => ()
+      case Syscall() => sb.append('\n').append(indent()).append(t).append('\n')
+      case Move(r1, r2) => sb.append('\n').append(indent()).append(t)
+      case LoadAddress(register, label) => sb.append('\n').append(indent()).append(t)
+      case LoadImmediate(register, value) => sb.append('\n').append(indent()).append(t)
+      case LoadWord(target, offset, source) => sb.append('\n').append(indent()).append(t)
     }
   }
 }

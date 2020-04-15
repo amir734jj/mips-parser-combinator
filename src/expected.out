@@ -1,18 +1,19 @@
-    .data
-str:   .asciiz "Hello world!"
-foo:    .word 5
-    .text
+
+	.data
+str:	.asciiz "Hello world!"
+foo:	.word 5
+	.text
 main:
-    li $v0, 4   # print string
-    la $a0, str
-    syscall
+  li $v0, 4
+  la $a0, str
+  syscall
 
-    li $v0, 1
-    la $t0, foo
-    lw $t1, 0($t0)
-    lw $a0, 0($t0)
-    syscall
+  li $v0, 1
+  la $t0, foo
+  lw $t0, 0($t0)
+  move $a0, $t0
+  syscall
 
-    halt:
-        li $v0, 10  # halt
-        syscall
+  halt:
+    li $v0, 10
+    syscall
