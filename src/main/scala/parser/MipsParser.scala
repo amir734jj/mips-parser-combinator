@@ -21,7 +21,9 @@ class MipsParser {
 
   def item: Parser[Token] = directive ||| instruction ||| misc
 
-  def program: Parser[Program] = repsep(item, """[\s\t\n]+""".r) ^^ { Program(_) }
+  def program: Parser[Program] = (blankP ?) ~ repsep(item, blankP) ~ (blankP ?) ^^ {
+    case _ ~ tokens ~ _ => Program(tokens)
+  }
 
   def parseCode(code: Reader[Char]): Program = {
     parse(program, code) match {

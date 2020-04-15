@@ -13,7 +13,7 @@ object LoadImmediate extends AtomicParser {
     override def toString: String = s"li $register, $value"
   }
 
-  def parse(): Parser[selfT] = literal("li") ~ registerP ~ separatorP ~ numberP ^^ {
+  def parse(): Parser[selfT] = literal("li") ~ WhiteSpace ~ registerP ~ separatorP ~ numberP ^^ {
     case _ ~ register ~ _ ~ value => LoadImmediateImpl(register, value)
   }
 }

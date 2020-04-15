@@ -12,7 +12,7 @@ object Word extends AtomicParser {
     override def toString: String = s".word $value"
   }
 
-  def parse(): Parser[selfT] = literal(".word") ~ numberP ^^ {
+  def parse(): Parser[selfT] = literal(".word") ~ WhiteSpace ~ numberP ^^ {
     case _ ~ number => WordImpl(number)
   }
 }

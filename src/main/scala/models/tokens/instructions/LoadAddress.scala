@@ -13,7 +13,7 @@ object LoadAddress extends AtomicParser {
     override def toString: String = s"la $register, $label"
   }
 
-  def parse(): Parser[selfT] = literal("la") ~ registerP ~ separatorP ~ wordP ^^ {
+  def parse(): Parser[selfT] = literal("la") ~ WhiteSpace ~ registerP ~ separatorP ~ wordP ^^ {
     case _ ~ register ~ _ ~ label => LoadAddressImpl(register, label)
   }
 }
