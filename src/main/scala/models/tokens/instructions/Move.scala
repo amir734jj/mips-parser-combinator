@@ -13,7 +13,7 @@ object Move extends AtomicParser {
     override def toString: String = s"move $r1, $r2"
   }
 
-  override def parse(): Parser[selfT] = literal("move") ~ separatorP ~ registerP ~ separatorP ~ registerP ^^ {
-    case _ ~ _ ~ register1 ~ _ ~ register2 => new MoveImpl(register1, register2)
+  override def parse(): Parser[selfT] = literal("move") ~ registerP ~ separatorP ~ registerP ^^ {
+    case _ ~ register1 ~ _ ~ register2 => new MoveImpl(register1, register2)
   }
 }

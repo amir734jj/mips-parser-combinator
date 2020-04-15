@@ -10,7 +10,7 @@ object GenericParser extends RegexParsers {
   type ParserT[E] = Parser[E]
 
   // Separator which is a comma followed by whitespace or just whitespace
-  def separatorP: ParserT[Option[String]] = literal(",") ?
+  def separatorP = """\s*,\s*""".r
 
   // Word parser
   def wordP: Parser[String] = """[\w]+""".r ^^ { x => x }
