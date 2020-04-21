@@ -16,5 +16,7 @@ object Driver {
     val program = parser.parseCode(new CharArrayReader(code.toArray, 0))
 
     println(new PrettyPrinter(program).format())
+
+    new SimpleSimulator(program).simulate()
   }
 }
