@@ -13,6 +13,6 @@ object Ascii extends AtomicParser {
   }
 
   def parse(): Parser[selfT] = literal(".ascii") ~ """"([^\\"]|\\.)*"""".r ^^ {
-    case _ ~ str => AsciiImpl(str.replaceAll(""""""", ""))
+    case _ ~ str => AsciiImpl(str.replaceAll("\"", ""))
   }
 }

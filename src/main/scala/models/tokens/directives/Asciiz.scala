@@ -13,6 +13,6 @@ object Asciiz extends AtomicParser {
   }
 
   def parse(): Parser[selfT] = literal(".asciiz") ~ WhiteSpace ~ """"([^\\"]|\\.)*"""".r ^^ {
-    case _ ~ str => AsciizImpl(str.replaceAll(""""""", ""))
+    case _ ~ str => AsciizImpl(str.replaceAll("\"", ""))
   }
 }
